@@ -4,6 +4,7 @@
 	width: 350px;
 	height: 500px;
 	border-radius: 15px;
+	box-shadow: 5px 5px #555;
 }
 
 #display {
