@@ -19,6 +19,7 @@ let op = "";
 let secondNum = false;
 let firstEq = true;
 let firstOp = true;
+let hasDecimal = false;
 
 function add(n1, n2) {
 	return parseInt(n1) + parseInt(n2);
@@ -82,7 +83,12 @@ function clickNum(number) {
 	}
 }
 
-
+function decimalPoint() {
+	if(!hasDecimal) {
+		hasDecimal = true;
+		clickNum('.');
+	}
+}
 
 function clickOp(operation) {
 	if (firstOp) {
@@ -92,6 +98,7 @@ function clickOp(operation) {
 	}
 	op = operation;
 	secondNum = true;
+	hasDecimal = false;
 }
 
 
@@ -103,6 +110,7 @@ function clearDisplay() {
 	secondNum = false;
 	firstEq = true;
 	firstOp = true;
+	hasDecimal = false;
 }
 
 
