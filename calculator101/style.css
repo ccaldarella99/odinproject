@@ -1,6 +1,7 @@
 
 #calculator {
 	background-color: #777;
+	background: linear-gradient(160deg, #aaa, #777);
 	width: 350px;
 	height: 500px;
 	border-radius: 15px;
@@ -15,7 +16,7 @@
 	margin: 35px auto 65px auto;
 	padding: 10px;
 	text-align:right;
-	box-shadow: 1px 1px #555;
+	box-shadow: 2px 2px #555;
 	border-radius: 5px;
 	font-family: Courier;
 	font-weight:bold;
@@ -35,7 +36,7 @@
 
 .btn-num, .btn-op, .btn-clear {
 	margin: 2px;
-	box-shadow: 2px 2px #555;
+	box-shadow: 3px 3px #555;
 	border-radius: 5px;
 }
 

@@ -1,3 +1,18 @@
+document.addEventListener('keydown', (e) => {
+	const keyName = e.key;
+	const keyCode = keyName.charCodeAt(0);
+	//alert(keyCode);
+	if(keyCode >=48 &&  keyCode <=57) { 
+		clickNum(keyName);
+	} else if (keyCode == 42 || keyCode == 43 || keyCode == 45 || keyCode == 47) {
+		clickOp(keyName);
+	} else if (keyCode == 69) {
+		equals();
+//	} else if (keyCode == 27) {
+//		clearDisplay();
+	}
+});
+
 const disp = document.getElementById("display");
 let key = "";
 let op = "";
@@ -31,13 +46,13 @@ function divide(n1, n2) {
 }
 
 function operate(op, num1, num2) {
-	if (op == "add") {
+	if (op == "add" ||op == "+") {
 		return add(num1, num2);
-	} else if(op == "subtract") {
+	} else if(op == "subtract" ||op == "-") {
 		return subtract(num1, num2);
-	} else if(op == "multiply") {
+	} else if(op == "multiply" ||op == "*") {
 		return multiply(num1, num2);
-	} else if(op == "divide") {
+	} else if(op == "divide" ||op == "/") {
 		return divide(num1, num2);
 	}
 }
