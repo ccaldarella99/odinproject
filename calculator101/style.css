@@ -21,6 +21,7 @@
 	font-family: Courier;
 	font-weight:bold;
 	font-size: 24px;
+	height: 29px;
 }
 
 .btn-row {
@@ -34,41 +35,69 @@
 	text-align: center;
 }
 
-.btn-num, .btn-op, .btn-clear {
+.btn-num, .btn-op, .btn-clear, .btn-back {
 	margin: 2px;
 	box-shadow: 3px 3px #555;
 	border-radius: 5px;
 }
 
-.btn-num:hover, .btn-op:hover {
-	background-color: #55f;
+.btn-num:hover, .btn-op:hover, .btn-clear:hover, .btn-back:hover {
 	cursor:pointer;
+}
+
+.btn-num:hover {
+	background-color: #55f;
+}
+
+.btn-op:hover {
+	background-color: #0c3;
 }
 
 .btn-clear:hover {
 	background-color: #ff6;
 	color: #000;
-	cursor:pointer;
 }
 
-.btn-num:active, .btn-op:active, .btn-clear:active {
+.btn-back:hover {
+	background-color: #f60;
+}
+
+.btn-num:active, .btn-op:active, .btn-clear:active, .btn-back:active {
 	box-shadow: -2px -2px #555;
 	cursor:pointer;
 }
 
 .btn-num, .btn-op {
 	display: inline;
-	background-color: #bbf;
 	width: 20%;
 	padding: 10px 25px;
 }
 
-.btn-clear {
+.btn-num {
+	background-color: #bbf;
+}
+
+.btn-op {
+	background-color: #3f5;
+}
+
+.btn-clear, .btn-back {
 	width:25%;
-	background-color: #f00;
-	color: #fff;
 	font-weight:bold;
 	padding: 10px;
+	display: inline-block;
+}
+
+.btn-clear {
+	background-color: #f00;
+	color: #fff;
+	margin-right: 35px;
+}
+
+.btn-back {
+	background-color: #f90;
+	color: #000;
+	margin-left: 35px;
 }
 
 

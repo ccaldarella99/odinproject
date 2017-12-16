@@ -1,15 +1,15 @@
 document.addEventListener('keydown', (e) => {
 	const keyName = e.key;
 	const keyCode = keyName.charCodeAt(0);
-	//alert(keyCode);
+//	alert(keyCode);
 	if(keyCode >=48 &&  keyCode <=57) { 
 		clickNum(keyName);
 	} else if (keyCode == 42 || keyCode == 43 || keyCode == 45 || keyCode == 47) {
 		clickOp(keyName);
 	} else if (keyCode == 69) {
 		equals();
-//	} else if (keyCode == 27) {
-//		clearDisplay();
+	} else if (keyCode == 66) {
+		backSpace();
 	}
 });
 
@@ -114,5 +114,11 @@ function clearDisplay() {
 }
 
 
-
+function backSpace() {
+	if (disp.innerHTML.length == 1) {
+		disp.innerHTML = 0;
+	} else if (disp.innerHTML != 0) {
+		disp.innerHTML = disp.innerHTML.slice(0,disp.innerHTML.length-1);
+	} 
+}
 
