@@ -1,0 +1,51 @@
+<!doctype html>
+<html>
+<head>
+	<link href=style.css rel="stylesheet">
+	<title> Pomodoro Timer </title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body id="bg-color" class="bg-blue">
+
+<div class="timer-group">
+
+	<div class="row">
+		<div class="spacing">
+			<div class="bullet-yellow" id="block-1"></div>
+			<div id="block-2"></div>
+			<div id="block-3"></div>
+		</div>
+		<div class="spacing set-break">Break:</div>
+		<div class="spacing set-long-break">Long-Break:</div>
+		<div class="spacing set-time">Work:</div>
+	</div>
+	
+	<div class="row">
+		<div id="set-break">
+			<div class="less-break click" onclick="decTime('break')">&minus;</div>
+			<div id="break">5:00</div>
+			<div class="more-break click" onclick="addTime('break')">&plus;</div>
+		</div>
+		<div id="set-long-break">
+			<div class="less-break click" onclick="decTime('long-break')">&minus;</div>
+			<div id="long-break">15:00</div>
+			<div class="more-break click" onclick="addTime('long-break')">&plus;</div>
+		</div>
+		<div id="set-time">
+			<div class="less-time click" onclick="decTime('time')">&minus;</div>
+			<div id="time">25:00</div>
+			<div class="more-time click" onclick="addTime('time')">&plus;</div>
+		</div>
+	</div>
+
+	<div id="showTime"></div>
+	<div class="row">
+		<button id="reset" onclick="resetTimer()">Reset</button>
+	</div>
+	<div class="timer bg-blue" id="Timer" onclick="startStop()">25:00</div>
+
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>

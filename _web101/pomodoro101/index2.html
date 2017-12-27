@@ -1,0 +1,47 @@
+<!doctype html>
+<html>
+    <head>
+        
+        <title> Pomodoro Timer </title>
+        
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="https://fonts.googleapis.com/css?family=Orbitron" rel="stylesheet">
+        <link rel="stylesheet" href="http://www.fontspace.com/style-7/digital-7?text=">
+        <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+        <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        
+        <link href=style.css rel="stylesheet">
+    </head>
+    <body>
+        <div class="ignore-container-fluid">
+            
+            <div class="timer-group">
+                <div id="set-break">
+                    <div class="less-break click" onclick="decTime('break')">&minus;</div>
+                    <div id="break">5:00</div>
+                    <div class="more-break click" onclick="addTime('break')">&plus;</div>
+                </div>
+                <div id="set-long-break">
+                    <div class="less-break click" onclick="decTime('long-break')">&minus;</div>
+                    <div id="long-break">15:00</div>
+                    <div class="more-break click" onclick="addTime('long-break')">&plus;</div>
+                </div>
+                <div id="set-time">
+                    <div class="less-time click" onclick="decTime('time')">&minus;</div>
+                    <div id="time">25:00</div>
+                    <div class="more-time click" onclick="addTime('time')">&plus;</div>
+                </div>
+				<div id="reset" onclick="resetTimer()">Reset</div>
+                
+                <div class="timer" id="Timer" onclick="startStop()">25:00</div>
+            </div>
+            
+			<button style="color:#000;">test</button>
+            <div class="test" id="test"></div>
+            
+	        <script src="app.js"></script>
+        </div>
+    </body>
+</html>

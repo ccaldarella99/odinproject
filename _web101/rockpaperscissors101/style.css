@@ -1,0 +1,35 @@
+.container {
+  background-color: #cff;
+  width: 500px;
+  margin: 20px;
+}
+.selection {
+  background-color: #cff;
+  padding: 10px;
+  text-align: center;
+}
+.header {
+  background-color: #99f;
+  padding: 15px 25px;  
+}
+.item {
+  width: 100px;
+  text-align: center;
+  display: inline-block;
+  padding: 10px 20px;
+  border: solid 1px #999;
+}
+.btn {
+  box-shadow: 4px 4px #555;
+	border-radius: 5px;
+}
+.header:hover, .item:hover {
+  cursor: pointer;
+}
+.outcome {
+  padding: 0 20px;
+}
+#output {
+  padding: 10px 35px;
+  height: 120px;
+}
