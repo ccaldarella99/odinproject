@@ -1,207 +1,250 @@
-class TicTacToe
+module TicTacToe
   
-  attr_accessor :xoVal, :xoArr, :turn, :numTurn, :positions, :assign, :game, :numPlayers, :endMsg
-  
-  def initialize
-    @xoArr = ['X', 'O']
-#    @numPlayers = getNumberOfPlayers
-#    if (@numPlayers == 1)
-#      @xoVal = exesOrOhs
-#    else
-      @xoVal = 0
-#    end
-    @turn = @xoVal
-    @numTurn = 0
-    @positions = [[" "," "," "],[" "," "," "],[" "," "," "]]
-    @assign = [["1","2","3"],["4","5","6"],["7","8","9"]]
-    @game = true
-  endMsg = ""
-    show_rules(assign)
-  end
-
-  def tictactoe_game
-    puts "Per tradition, X\'s go first"
-    while(@game == true)
-      puts ""
-      show_board(@positions)
-      input = gets.chomp
-      if input.match(/q|quit|exit/i)
-        @game = false
-        puts "Exiting..."
-      elsif input.match(/\?|h|help/i)
-        show_rules(@assign)
-      elsif input.match(/\d/)
-#  			positions = setPos(positions, input, 0)
-        setPos(input.to_i)
-      end
-      if(checkForWinner)
-        game_over
-      end
-      if(@numTurn >= 9)
-        @endMsg ||= "Let's call it a Draw!"
-        game_over
-      end
+  class Game
+    attr_accessor :board, :player1, :player2, :turn, :winner, :computer, :level
+    
+    def initialize
+      @board = Board.new
+      @turn = "X"
+      @computer = isComputer
+      @player1 = Player.new
+      @player2 = Player.new(@player1.token, @computer == "2" ? false : true)
+      @level = @computer == "2" ? 0 : getLevel
     end
-    puts "\nGame has ended.\n"# - #{input}"
-  end
-  
-  def game_over
-    show_board(@positions)
-    puts "\n\n   ***" + @endMsg + "***   \n\n"
-    @game = false
-    exit
-  end
-  
-  def checkForWinner
-    checkSumRows
-    checkSumCols
-    checkSumDiag
-  end
-  
-  private
-  def checkSumRows
-    i = 0
-    while i < 3
-      sum = @positions[i][0] + @positions[i][1] + @positions[i][2]
-      if(sum == "XXX")
-        @endMsg = "X\'s have Won!"
-        game_over
-      elsif (sum == "OOO")
-        @endMsg = "O\'s have Won!"
-        game_over
-      end
-      i += 1
-    end
-    @endMsg
-  end
-  
-  def checkSumCols
-    i = 0
-    while i < 3
-      sum = @positions[0][i] + @positions[1][i] + @positions[2][i]
-      if(sum == "XXX")
-        @endMsg = "X\'s have Won!"
-        game_over
-      elsif (sum == "OOO")
-        @endMsg = "O\'s have Won!"
-        game_over
-      end
-      i += 1
-    end
-    @endMsg
-  end
-  
-  def checkSumDiag
-    diag1 = @positions[0][0] + @positions[1][1] + @positions[2][2]
-    diag2 = @positions[0][2] + @positions[1][1] + @positions[2][0]
-      if(diag1 == "XXX" || diag2 == "XXX")
-        @endMsg = "X\'s have Won!"
-        game_over
-      elsif(diag1 == "OOO" || diag2 == "OOO")
-        @endMsg = "O\'s have Won!"
-        game_over
-      end
-    @endMsg
-  end
-  
-  def setPos(play)
-    if(play.to_i > 0 && play.to_i < 10)
-      puts "Played square: #{play}"
-      setPositionArray(play)
-    else
-      puts "Please enter a number (1-9)"
-    end
-  end
-  
-  def show_board(p)
-    puts "\n      #{p[0][0]}|#{p[0][1]}|#{p[0][2]}"
-    puts "      -----"
-    puts "      #{p[1][0]}|#{p[1][1]}|#{p[1][2]}"
-    puts "      -----"
-    puts "      #{p[2][0]}|#{p[2][1]}|#{p[2][2]}\n"
-  end
-
-  def show_rules(p)
-    puts "Enter a number to the corresponding square."
-    show_board(p)
-    puts "\nEnter \'q\' to quit."
-    puts "Enter \'?\', \'h\', or \'help\' to see this menu again."
-  end
-
-  def setPositionArray(pos)
-    if(pos > 0 && pos < 4)
-      a = 0
-    elsif(pos>3 && pos < 7)
-      a = 1
-    elsif(pos >6 && pos < 10)
-      a = 2
-    else
-      puts "Please enter a number between 1 and 9"
-    end
-    b = (pos%3) - 1
-    if(@positions[a][b] == " ")
-      @positions[a][b] = @xoArr[@turn.to_i]
-      @turn = @turn == 0 ? @turn = 1 : @turn = 0
-      @numTurn += 1
-    end
-  end
-  
-  def getNumberOfPlayers()
-    getNum = true
-    puts "Tic-Tac-Toe is a two-player game."
-    while getNum == true
-      puts "How many human players?"
-      numberOfHumanPlayers = gets.chomp
-      if(numberOfHumanPlayers.match(/1/i))
-        puts "There is one human player"
-        getNum = false
-      elsif(numberOfHumanPlayers.match(/2/i))
-        puts "There are two human players"
-        getNum = false
+    
+    def getLevel
+      puts "\nPick a Level:   1) Easy   2) Medium   3) Harder   4) Hardest"
+      getLevelInput = gets.chomp
+      if(getLevelInput.to_i > 3 || getLevelInput.upcase == "HARDEST")
+        @level = 3
+      elsif(getLevelInput.to_i > 2 || getLevelInput.upcase == "HARDER")
+        @level = 2
+      elsif(getLevelInput.to_i > 1 || getLevelInput.upcase == "Medium")
+        @level = 1
       else
-        puts "hmmm... that was not a \'1\' nor a \'2\'."
-        puts "Please try again."
+        @level = 0
       end
     end
-    numberOfHumanPlayers.to_i
-  end
-
-  def exesOrOhs
-    getXO = true
-    while getXO == true
-      puts "Select \'X\'s or \'O\'s"
-      xo = gets.chomp
-      if(xo.match(/x/i))
-        xo = 0
-        puts "You are \'X\'s"
-        getXO = false
-      elsif(xo.match(/O/i))
-        xo = 1
-        puts "You are \'O\'s"
-        getXO = false
-      elsif(xo.match(/\d+/i))
-        m = xo.match(/\d+/i)
-        if(m[0].to_i < 2)
-          xo = 0
-         puts "You are \'X\'s"
-         getXO = false
-       else
-          xo = 1
-          puts "You are \'O\'s"
-          getXO = false
+    
+    def isComputer
+      loop do
+        system "clear"
+        puts "How many human Players will be participating today?"
+        numPlayers = gets.chomp
+        return numPlayers if(numPlayers == "1" || numPlayers == "2")
+      end
+    end
+    
+    def over?
+      !isWinner? ? @board.board.include?(" ") : !isWinner?
+    end
+    
+    def isWinner?
+      xs = @board.board.each_index.select { |i| @board.board[i]=="X" }
+      os = @board.board.each_index.select { |i| @board.board[i]=="O" }
+      board.winning.each do |w|
+        @winner = (w - os).empty? ? "O" : nil
+        if @winner then break end
+        @winner = (w - xs).empty? ? "X" : nil
+        if @winner then break end
+      end
+      @winner
+    end
+    
+    def getNumber
+      getMove = 0
+      hasGotNumber = false
+      while(!hasGotNumber)
+        getMove = getInput
+        if(getMove == "Q" || getMove == "QUIT" || getMove == "EXIT")
+          exit
+        elsif(getMove.to_i.is_a? Integer)
+          getMove = getMove.to_i
+          if(getMove < 10 && getMove > 0)
+            hasGotNumber = isTaken(getMove-1)
+          else
+            puts "Please pick a number from 1 through 9"
+          end
+        else
+          puts "Please enter \'Q\', \'QUIT\', or \'EXIT\' to leave the game."
+          puts "Or enter a numer from 1 through 9 to continue"
         end
+      end
+      getMove
+    end
+    
+    def getInput
+      if(@computer == "2" || @player1.token == @turn)
+        playerName = @player1.token == @turn ? @player1.name : @player2.name
+        puts "Pick a square, #{playerName}"
+        getNumberInput = gets.chomp.upcase
       else
-        puts "hmmm... that was not an \'X\' nor an \'O\'."
-        puts "Please try again."
+        getNumberInput = generateNumber
+      end
+      getNumberInput
+    end
+    
+    def generateNumber
+      if(@level < 1)
+        return rand(1..9)
+      end
+      i=0
+      bestMove = [0,0]
+      all = []
+      compWin = @board.board.each_index.select { |i| @board.board[i]==@player2.token }
+      human = @board.board.each_index.select { |i| @board.board[i]==@player1.token }
+      board.winning.each do |w|
+        c = (w - compWin)
+        h = (w - human)
+        available = c- human
+        all << available
+        puts "Winning Squares: #{available}"
+        if(c.length == 1 && available.length > 0 && available.detect(c[0]))
+          bestMove = [20, c[0] + 1]
+        end
+        if(h.length == 1 && available.length > 0 && available.detect(h[0]))
+          if(bestMove[0] < 15)
+            bestMove = [15, h[0] + 1]
+          end
+        end
+        if(c.length == 2 && available.length > 0 && available.detect(c[0]))
+          if(bestMove[0] < 10)
+            bestMove = [10, c[rand(0..1)] + 1]
+          end
+        end
+        if(available.length == 1)
+          if(bestMove[0] < 5)
+            bestMove = [5, available[0] + 1]
+          end
+        end
+      end
+      all  = all.flatten
+      if(@level == 2 && bestMove[0] == 0 && all.length < 9)
+        mode = all.inject(Hash.new(0)) { |k, v| k[v] += 1; k }
+        mode = mode.sort_by {|k,v| v}.reverse.to_h
+        addToBest = mode.max_by {|k,v| v}
+        bestMove[0] = addToBest[1]
+        bestMove[1] = addToBest[0]+1
+      end
+      if(bestMove[0] == 0)
+        bestMove[1] = rand(1..9)
+      end
+      puts bestMove[1]
+      bestMove[1]
+    end
+    
+    def nextTurn()
+      getMove = getNumber
+      @board.writeMoveToBoard(getMove-1, @turn)
+      system "clear"
+      nameToken
+      @board.show_example
+      @board.show
+      @turn = @turn == "X" ? @turn = "O" : @turn = "X"
+    end
+    
+    def isTaken(square=nil)
+      if(@board.board[square] == " ")
+        return true
+      end
+      puts "This Square is taken, please select another."
+      false
+    end
+    
+    def nameToken
+      puts "Player 1 is named: #{@player1.name} - they are #{@player1.token}s"
+      puts "Player 2 is named: #{@player2.name} - they are #{@player2.token}s"
+    end
+    
+  end
+  
+  
+  class Player
+    attr_accessor :name, :token
+    
+    def initialize(isTwo=nil, isComputer=nil)
+      if(isComputer)
+        @name = "COMPUTER"
+      else
+        if(isTwo)
+          print "\nOkay Player2. "
+        else
+          print "\nOkay Player1. "
+        end
+        puts "WHAT! ...is your name?"
+        @name = gets.chomp
+        puts "Your name is #{@name}!"
+      end
+      if isTwo
+        @token = isTwo == "X" ? "O" : "X"
+        puts "#{@name} has been assigned #{@token}s"
+      else
+        while(@token != "X" && @token != "O")
+          puts "Your pick! Xs or Os?"
+          @token = gets.chomp.upcase
+        end
       end
     end
-    xo
+    
   end
+  
+  
+  class Board
+    attr_accessor :board, :winning
+
+    def initialize
+      @board = []
+      @example = []
+      1.upto(9) { |x| @board[x-1] = " " }
+      1.upto(9) { |x| @example[x-1] = x.to_s }
+      @turn = "X"
+      @winning = 
+        [[0,1,2],[3,4,5],[6,7,8],
+         [0,3,6],[1,4,7],[2,5,8],
+         [0,4,8],[2,4,6]]
+    end
+    
+    def show(input=nil)
+      input ||= @board.dup
+      puts "\n #{input[0]} | #{input[1]} | #{input[2]} "
+      puts "---|---|---"
+      puts " #{input[3]} | #{input[4]} | #{input[5]} "
+      puts "---|---|---"
+      puts " #{input[6]} | #{input[7]} | #{input[8]} \n\n"
+    end
+    
+    def show_example
+      show(@example)
+      puts "Pick a number to take the square."
+      puts "You cannot take a square that is already taken.\n"
+    end
+    
+    def writeMoveToBoard(play, xo)
+      @board[play] = xo
+    end
+  end
+  
+  game = Game.new
+  
+  system "clear"
+  game.nameToken
+  game.board.show_example
+  game.board.show
+  
+  while game.over? do
+      game.nextTurn
+  end
+  
+  if(game.winner.nil?)
+    puts "\nWe'll call it a draw."
+  elsif (game.winner == game.player1.token)
+    puts "\n#{game.player1.name} Wins!"
+  elsif (game.winner == game.player2.token)
+    puts "\n#{game.player2.name} Wins!"
+  end
+  puts "\n"
 end
 
 
-Game1 = TicTacToe.new
-Game1.tictactoe_game
 
-#tictactoe_game
-#system('pause')
+
