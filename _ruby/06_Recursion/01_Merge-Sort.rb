@@ -22,12 +22,8 @@ def merge_sort(fullArr)
 		arr1.flatten!
 		arr2.flatten!
 		if(arr1[0] > arr2[0])
-		#p arr2
-		#p arr1
 			return [arr2, arr1]
 		else
-		#p arr2
-		#p arr1
 			return [arr1, arr2]
 		end
 	end
@@ -35,28 +31,34 @@ def merge_sort(fullArr)
 	newArr2 << merge_sort(arr2)
 	newArr1.flatten!
 	newArr2.flatten!
-	#newArr << newArr1.flatten!
-	#newArr << newArr2.flatten!
-	#if(newArr1[0] == nil && newArr2[0] == nil)
-	#	return
-	#end
-#	puts "ARR1: #{newArr1[0]}, #{newArr1.length}"
-#	puts "ARR2: #{newArr2[0]}, #{newArr2.length}"
-#	p newArr1
-#	p newArr2
-	
-	while (newArr1.length > 0 && newArr2.length > 0 && (newArr1[0] != nil || newArr2[0] != nil))
-		p newArr
-		if(newArr1[0] < newArr2[0])
-			newArr << newArr1[0]#.shift
-			newArr1.delete_at(0)
-		else
-			newArr << newArr2[0]#.shift
-			newArr2.delete_at(0)
+
+	if(newArr1 != [nil] || newArr2 != [nil])
+		i=0
+		while (i<len && newArr1.length > 0 && newArr2.length > 0)# && (newArr1[0] != nil || newArr2[0] != nil))
+			if(newArr1 == [nil] || newArr2 == [nil])
+				break
+			elsif(newArr1[0] > newArr2[0])
+				newArr << newArr2.shift
+			elsif(newArr1[0] <= newArr2[0])
+				newArr << newArr1.shift
+			end
+			
+			if(newArr1 == [])
+				newArr << newArr2
+			end
+			if(newArr2 == [])
+				newArr << newArr1
+			end
+			
+			i += 1
+#			p i
+#			p newArr
+#			p newArr1
+#			p newArr2
 		end
-	end	
+	end
 	
-	newArr.flatten!
+	newArr#.flatten!
 end
 
 p array1
