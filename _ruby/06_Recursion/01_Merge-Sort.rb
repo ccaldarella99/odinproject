@@ -20,10 +20,6 @@ def merge_sort(fullArr)
 	newArr1 = []
 	newArr2 = []
 	
-#	puts "1: #{arr1}"
-#	puts "2: #{arr2}"
-#		puts "One and One: #{arr1} and #{arr2}"
-	
 	if(len1 == 1 && len2 == 1)
 		arr1.flatten!
 		arr2.flatten!
@@ -38,9 +34,6 @@ def merge_sort(fullArr)
 	newArr1.flatten!
 	newArr2.flatten!
 
-#	puts "3: #{newArr1}"
-#	puts "4: #{newArr2}"
-	
 	if(newArr1 != [nil] || newArr2 != [nil])
 		i=0
 		while (i<len && newArr1.length > 0 && newArr2.length > 0)# && (newArr1[0] != nil || newArr2[0] != nil))
@@ -60,10 +53,6 @@ def merge_sort(fullArr)
 			end
 			
 			i += 1
-#			p i
-#			p newArr
-#			p newArr1
-#			p newArr2
 		end
 	end
 	
