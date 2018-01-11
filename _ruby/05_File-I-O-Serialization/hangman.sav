@@ -1,0 +1,49 @@
+---
+:wordLength: 10
+:player: !ruby/object:Hangman::Player
+  guessedLetters:
+  - a
+  - s
+  - e
+  - r
+  selectSave: false
+  selectLoad: false
+:board: !ruby/object:Hangman::Board
+  numLimbs: 2
+  limbs:
+  - O
+  - "/"
+  - "|"
+  - "/ "
+  - "\\"
+  - "\\"
+  - " "
+  limbOrder:
+  - 2
+  - 3
+  - 3
+  - 4
+  - 3
+  - 4
+  - 5
+  board:
+  - "          _____"
+  - "         |     |"
+  - "         |     O"
+  - "         |    /"
+  - "         |    "
+  - "         |"
+  - "       -----"
+  isOver: false
+:wordArray:
+- R
+- E
+- _
+- R
+- E
+- S
+- S
+- _
+- _
+- E
+:word: REGRESSIVE
