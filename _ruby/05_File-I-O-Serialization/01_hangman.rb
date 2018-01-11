@@ -1,7 +1,7 @@
 module Hangman
   
   class Game
-    attr_accessor :player1, :board, :fileLineLimit, :word, :guessCorrectly, :wordLength
+    attr_accessor :player1, :board, :fileLineLimit, :word, :guessCorrectly, :wordLength, :wordArray
     
     def initialize
       @fileLineLimit = 61_407
@@ -10,40 +10,54 @@ module Hangman
 	  @wordLength = @word.length
       @board = Board.new#(@word)
 	  @guessCorrectly = false
+	  @wordArray = fillArr
     end
 	
 	def display
+	  system 'cls'
+	  @board.showRules
+	  @player1.showGuessedLetters
+	  puts @word
 	  @board.showBoard
+	  showSpaces
 	  if(!over?)
 	    pIn = @player1.getPlayerInput
 	    p checkGuess(pIn)
-	    @board.addLimb
+#	    @board.addLimb
 	  end 
-	  showSpaces
 	end
 	
 	def showSpaces
 	  puts ""
 	  if(!over?)
-	    @wordLength.times { |x| print " _" }
+        print "   "
+	    #@wordLength.times { |x| print " _" }
+	    @wordLength.times { |x| print " #{@wordArray[x]}" }
       else
 	    @board.showBoard
 	    puts "ANSWER:"
-		@wordLength.times { |x| print " #{@word[x]}"}
+		@wordLength.times { |x| print "#{@word[x]}"}
       end
-	  puts ""
+	  puts "\n\n"
 	end
 	
 	def checkGuess(guess)
 	  _ret = []
 	   i=0
+	   containsWord = false
 	  @word.downcase.each_char do |c|
 		if(c == guess.downcase)
-		  _ret << i
+		  @wordArray[i] = c.upcase
+		  containsWord = true
+#		else
+#		  _ret << i
 		end
 		i += 1
 	  end
-	  _ret
+	  unless(containsWord)
+	    @board.addLimb
+	  end
+#	  _ret
 	end
 	
 	def over?
@@ -52,6 +66,12 @@ module Hangman
 	
 	def isWinner?
 	  guessCorrectly
+	end
+	
+	def fillArr
+	  @wordArray = []
+	  @wordLength.times { |x| @wordArray[x] = "_" }
+	  @wordArray
 	end
 	
 	private
@@ -75,12 +95,19 @@ module Hangman
 	  @guessedLetters = []
     end
 	
+	def showGuessedLetters
+	  print "   "
+	  @guessedLetters.each { |x| print " #{x.upcase}"}
+	  puts ""
+	end
+	
     def getPlayerInput
 	  input = ""
 	  while(input.length != 1)
 	    puts "Enter a Letter to guess."
 		input = gets.chomp
 	  end
+	  @guessedLetters << input
 	  input
 	end
   end
@@ -98,14 +125,21 @@ module Hangman
     end
 	
 	def buildBoard
-		board0 = "     _____"
-		board1 = "    |     |"
-		board2 = "    |     "
-		board3 = "    |    "
-		board4 = "    |    "
-		board5 = "    |"
-		board6 = "  -----"
+		board0 = "          _____"
+		board1 = "         |     |"
+		board2 = "         |     "
+		board3 = "         |    "
+		board4 = "         |    "
+		board5 = "         |"
+		board6 = "       -----"
 		board = [board0,board1,board2,board3,board4,board5,board6]
+	end
+	
+	def showRules
+	  puts "RULES: \nYou must guess a 5-12 Letter word."
+	  puts "You can guess any letter."
+	  puts "But you may only get 6 wrong before you lose!"
+	  puts "Good Luck!\n\n"
 	end
 	
 	def showBoard
@@ -125,11 +159,13 @@ module Hangman
   #game.display
   
   while(!game.over?)
-    puts game.word
     game.display
   end
     #game.display
   
   #End results of game win/lose
+  game.board.showRules
+  game.board.showBoard
+  puts "\n\n     *** GAME OVER ***\n\n"
   
 end
