@@ -1,51 +1,74 @@
-class LinkedList
-	attr_accessor :listItem
+class Node
+	attr_accessor :value, :nextAddress
 	
-	class Node
-		attr_accessor :value, :address, :nextAddress, :isHead, :isTail
-		
-		def initialize(value)
-			@value = value
-			@nextAddress = nil#||= nextAddress
-			@address = self.object_id << 1
-			@isHead = false
-			@isTail = false
-		end
+	def initialize(value=nil, next_node=nil)
+		@value = value
+		@nextAddress = next_node
 	end
+end
+
+class LinkedList
+	attr_accessor :head
 	
-	def initialize(value=nil)
-		@listItem = Node.new(value)
-		@listItem.isHead = true
-		@listItem.isTail = true
+	def initialize(value)
+		@head = Node.new(value, nil)
 	end
 	
 	def append(value=nil)
-		prevNode = @listItem.node
-		@listItem.isTail = false
-
-		@listItem = Node.new(value)
-		@listItem.isHead = false
-		@listItem.isTail = true
-		prevNode.nextAddress = @listItem.address
+		current = @head
+		while current.nextAddress != nil
+			current = current.nextAddress
+		end
+		current.nextAddress = Node.new(value, nil)
 	end
 	
-	def prepend
+	def prepend(value=nil)
+#		old_head = @head
+		@head = Node.new(value, @head)
 	end
 	
 	def size
-		return 0
+		count = 0
+		current = @head
+		while current.nextAddress != nil
+			current = current.nextAddress
+			count += 1
+		end
+		count += 1
 	end
 	
 	def head
+		@head.value
 	end
 	
 	def tail
+		current = @head
+		while current.nextAddress != nil
+			current = current.nextAddress
+		end
+		current.value
 	end
 	
 	def at(index)
+		return "ERROR: Outside List bounds" if(index > self.size - 1)
+		return "ERROR: Outside List bounds" if(index < 0)
+		count = 0
+		current = @head
+		until count == index
+			current = current.nextAddress
+			count += 1
+		end
+		current.value
 	end
 	
 	def pop
+		prev = @head
+		current = prev.nextAddress
+		while current.nextAddress != nil
+			prev = current
+			current = current.nextAddress
+		end
+		prev.nextAddress = nil
 	end
 	
 	def contains?
@@ -55,10 +78,16 @@ class LinkedList
 	end
 	
 	def to_s
-		p self
+		current = @head
+		while current.nextAddress != nil
+			puts "#{current.value}"
+			current = current.nextAddress
+		end
+		puts "#{current.value}"
 	end
 	
-	def insert_at(index)
+	#EXTRA CREDIT
+	def insert_at(new_value, index)
 	end
 	
 	def remove_at(index)
@@ -66,6 +95,26 @@ class LinkedList
 end
 
 
-a = LinkedList.new("xyz")
-#a.append = "abc"
+a = LinkedList.new("abc <- FIRST (1)")
+puts "1.)"
+a.to_s
+a.append("def - 2")
+a.append("def - 3")
+a.append("def <- LAST (4)")
+puts "\n2.)"
+a.to_s
+a.prepend("xyz <- NEW FIRST (0)")
+puts "\n3.)"
+a.to_s
+puts "\nSize = #{a.size}"
+puts "Tail: #{a.tail}"
+puts "Head: #{a.head}"
+puts "Index 0: #{a.at(0)}"
+puts "Index 1: #{a.at(1)}"
+puts "Index 2: #{a.at(2)}"
+puts "Index 4: #{a.at(4)}"
+puts "Index 6: #{a.at(5)}"
+
+puts "\n4.)"
+a.pop
 a.to_s
