@@ -104,7 +104,9 @@ class LinkedList
 	
 	#EXTRA CREDIT
 	def insert_at(new_value, index)
-		if(index == 0)
+    if(index >= self.size || index < 0)
+      nil
+		elsif(index == 0)
 			self.prepend(new_value)
 		elsif(index == self.size - 1)
 			self.append(new_value)
@@ -121,6 +123,25 @@ class LinkedList
 	end
 	
 	def remove_at(index)
+    if(index >= self.size || index < 0)
+      nil
+		elsif(index == 0)
+      @head = @head.nextAddress
+		else
+			count = 1
+      prev = @head
+			current = prev.nextAddress
+			until count == index
+        prev = current
+				current = current.nextAddress
+				count += 1
+			end
+      if(current.nextAddress == nil)
+        prev.nextAddress = nil
+      else
+			  prev.nextAddress = current.nextAddress
+      end
+		end
 	end
 end
 
@@ -168,6 +189,13 @@ puts a.to_s
 a.insert_at("new at #{a.size}", a.size-1)
 puts a.to_s
 
+puts ""
 
+a.remove_at(0)
+puts a.to_s
+a.remove_at(1)
+puts a.to_s
+a.remove_at(a.size-1)
+puts a.to_s
 
 
