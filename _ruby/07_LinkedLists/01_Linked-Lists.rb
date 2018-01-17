@@ -23,7 +23,6 @@ class LinkedList
 	end
 	
 	def prepend(value=nil)
-#		old_head = @head
 		@head = Node.new(value, @head)
 	end
 	
@@ -71,10 +70,27 @@ class LinkedList
 		prev.nextAddress = nil
 	end
 	
-	def contains?
+	def contains?(data)
+    return true if(@head.value == data)
+		current = @head
+		while current.nextAddress != nil
+			current = current.nextAddress
+      return true if(current.value == data)
+		end
+    return false
 	end
 	
 	def find(data)
+    _ret = nil
+    count = 0
+		current = @head
+    _ret = count if(current.value == data)
+		while current.nextAddress != nil
+			current = current.nextAddress
+      count += 1
+      _ret = count if(current.value == data)
+		end
+    return _ret
 	end
 	
 	def to_s
@@ -88,6 +104,20 @@ class LinkedList
 	
 	#EXTRA CREDIT
 	def insert_at(new_value, index)
+		if(index == 0)
+			self.prepend(new_value)
+		elsif(index == self.size - 1)
+			self.append(new_value)
+		else
+			current = @head
+			count = 1
+			until count == index
+				current = current.nextAddress
+				count += 1
+			end
+			newNode = Node.new(new_value, current.nextAddress)
+			current.nextAddress = newNode
+		end
 	end
 	
 	def remove_at(index)
@@ -118,3 +148,26 @@ puts "Index 6: #{a.at(5)}"
 puts "\n4.)"
 a.pop
 a.to_s
+puts a.contains?("def - 3")
+puts a.contains?("qrs")
+puts a.contains?("abc <- FIRST (1)")
+
+puts ""
+
+puts a.find("xyz <- NEW FIRST (0)")
+puts a.find("abc <- NEW FIRST")
+puts a.find("def - 3")
+
+puts " The List is now size: #{a.size}"
+puts a.to_s
+
+a.insert_at("new at 0", 0)
+puts a.to_s
+a.insert_at("new at 1", 1)
+puts a.to_s
+a.insert_at("new at #{a.size}", a.size-1)
+puts a.to_s
+
+
+
+
