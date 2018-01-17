@@ -95,11 +95,13 @@ class LinkedList
 	
 	def to_s
 		current = @head
+		output = " ( #{current.value} ) ->"
 		while current.nextAddress != nil
-			puts "#{current.value}"
 			current = current.nextAddress
+			output += " ( #{current.value} ) ->"
 		end
-		puts "#{current.value}"
+		output += " nil"
+		puts output
 	end
 	
 	#EXTRA CREDIT
@@ -123,24 +125,26 @@ class LinkedList
 	end
 	
 	def remove_at(index)
-    if(index >= self.size || index < 0)
-      nil
+		if(index >= self.size || index < 0)
+		  nil
 		elsif(index == 0)
-      @head = @head.nextAddress
+		  @head = @head.nextAddress
+		elsif(index == size - 1)
+		  self.pop
 		else
-			count = 1
-      prev = @head
-			current = prev.nextAddress
-			until count == index
-        prev = current
-				current = current.nextAddress
-				count += 1
-			end
-      if(current.nextAddress == nil)
-        prev.nextAddress = nil
-      else
-			  prev.nextAddress = current.nextAddress
-      end
+		  count = 1
+		  prev = @head
+		  current = prev.nextAddress
+		  until count == index
+			prev = current
+			current = current.nextAddress
+			count += 1
+		  end
+		  if(current.nextAddress == nil)
+			prev.nextAddress = nil
+		  else
+			prev.nextAddress = current.nextAddress
+		  end
 		end
 	end
 end
@@ -197,5 +201,4 @@ a.remove_at(1)
 puts a.to_s
 a.remove_at(a.size-1)
 puts a.to_s
-
 
