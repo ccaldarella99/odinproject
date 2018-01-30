@@ -1,0 +1,79 @@
+
+def show_board(p)
+	puts "#{p[0][0]}|#{p[0][1]}|#{p[0][2]}"
+	puts "-----"
+	puts "#{p[1][0]}|#{p[1][1]}|#{p[1][2]}"
+	puts "-----"
+	puts "#{p[2][0]}|#{p[2][1]}|#{p[2][2]}"
+end
+
+def show_rules(p)
+	puts "Enter a number to the corresponding square."
+	show_board(p)
+	puts "Enter \'q\' to quit."
+	puts "Enter \'?\', \'h\', or \'help\' to see this menu again."
+end
+
+#=begin
+def positions(arr, pos, xo)
+	if(pos > 0 && pos < 4)
+		a = 0
+	elsif(pos>3 && pos < 7)
+		a = 1
+	elsif(pos >6 && < 10)
+		a = 2
+	else
+		puts "Please enter a number between 1 and 9"
+	end
+end
+#=end
+=begin
+def exesOrOhs
+	getXO = true
+	while getXO == true
+		puts "Select \'X\'s or \'O\'s"
+		xo = gets.chomp
+		if(xo.match(/x/i))
+			xo = 0
+			puts "You are \'X\'s"
+			getXO = false
+		if(xo.match(/0/i))
+			xo = 1
+			puts "You are \'O\'s"
+			getXO = false
+		else
+			puts "hmmm... that was not an \'X\' nor an \'O\'."
+			puts "Please try again."
+		end
+	end
+	xo
+=end
+
+def tictactoe_game
+	positions = [[" "," "," "],[" "," "," "],[" "," "," "]]
+	assign = [["1","2","3"],["4","5","6"],["7","8","9"]]
+	show_rules(assign)
+	#xo = exesOrOhs
+	game = true
+	
+	while(game == true)
+		puts ""
+		show_board(positions)
+		input = gets.chomp
+		if input.match(/q|quit|exit/i)
+			game = false
+		elsif input.match(/\?|h|help/i)
+			show_rules(assign)
+		elsif input.match(/\d/)
+#			positions = setPos(positions, input, 0)
+		end
+	end
+	
+	puts "Game has ended. - #{input}"
+	
+end
+
+
+tictactoe_game
+
+system('pause')
