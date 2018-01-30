@@ -1,6 +1,9 @@
 
-input_array = [1,3,6,2,9,4,3,6,0,11]
-arrayTwo = [1,3,6,2,9,4,3,6,11]
+array1 = [1,3,6,2,9,4,3,6,0,11]
+array2 = [1,3,6,2,9,4,3,6,11]
+array3 = [2,2,4,8]
+array4 = [1,2,3,4,5]
+array5 = [-1,-2,-3,-4,-5]
 
 module Enumerable
 	def my_each
@@ -79,30 +82,42 @@ module Enumerable
 	end
 end
 
+
+
+
 def multiply_els(inputArr)
-	inputArr.my_inject { |prod, z| prod*z }
+	#Leave this here
+	p inputArr.my_inject { |prod, n| prod * n }
 end
 
-
-
-def test_method(arr1)
-	p arr1
-#	_ret = arr1.my_each { |a| puts "Value #{a}" }
-#	_ret = arr1.my_each_with_index { |a, i| puts "Index: #{i}, Value #{a}" }
-#	_ret = arr1.my_select { |num| num.even? }
-#	_ret = arr1.my_all? { |num| num > 0 }
-#	_ret = arr1.my_any? { |num| num > 0 }
-#	_ret = arr1.my_none? { |num| num > 11 }
-#	_ret = arr1.my_count { |y| y%2==0 }
-#	_ret = arr1.my_map { |i| i*i }
-#	_ret = arr1.my_inject { |sum, n| sum * n }
-end
-def test_multiply_els(inArr)
-	_ret = multiply_els(inArr)
+def test_method(arrIn)
+	#Leave this here
+#	p arrIn
+#	_ret = arrIn.my_each { |a| puts "Value #{a}" }
+#	_ret = arrIn.my_each_with_index { |a, i| puts "Index: #{i}, Value #{a}" }
+#	_ret = arrIn.my_select { |num| num.even? }
+#	_ret = arrIn.my_all? { |num| num > 0 }
+#	_ret = arrIn.my_any? { |num| num > 0 }
+#	_ret = arrIn.my_none? { |num| num > 0 }
+#	_ret = arrIn.my_count { |y| y%2==0 }
+#	_ret = arrIn.my_map { |i| i*i }
+	_ret = arrIn.my_inject { |sum, n| sum + n }
 	p _ret
 end
 
-test_multiply_els(arrayTwo)
-#test_method(input_array)
+
+multiply_els(array1)
+multiply_els(array2)
+multiply_els(array3)
+multiply_els(array4)
+multiply_els(array5)
+
+puts ""
+
+test_method(array1)
+test_method(array2)
+test_method(array3)
+test_method(array4)
+test_method(array5)
 
 system('pause')
