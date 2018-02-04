@@ -1,17 +1,34 @@
 <!DOCTYPE HTML>
 <html>
 	<head>
+		<style>
+			#body_bg { background: <%= bg_color %> }
+			img { height: 300px; }
+		</style>
 	</head>
-	<body>
+	<body id="body_bg">
 		
-		<p> Guess a Number between 0 and 100 </p>
-		
+		<h1> Guess a Number between 0 and 100 </h1>
+		<p><strong> You get 5 tries </strong></p>
 		<form>
-			<input type="text" name="guess">
+			<p>
+				<a href="javascript:;" onclick="toggle_cheat();" title="Click to Show/Hide Secret Number">
+					The Secret Number is: <%= random_number if(cheat == "true") %> 
+				</a>
+			</p>
+			<input type="text" name="guess" autofocus>
 			<input type="submit" value="Guess!">
+			<br><input type="hidden" id="cheat" name="cheat" value="<%= cheat||=false %>">
 		</form>
 		
-		<%= output %>
+		<br>
+		<%= output||="<br><img src=\'https://tinyurl.com/y97g69ua\'><br>Guesses: #{@@count}" %>
 
+		<script>
+			function toggle_cheat() {
+				var x = document.getElementById('cheat');
+				x.value = x.value == "true" ? x.value = "false" : x.value = "true";
+			}
+		</script>
 	</body>
 </html>
