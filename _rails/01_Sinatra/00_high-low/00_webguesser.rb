@@ -1,7 +1,7 @@
 require 'sinatra'
-require 'sinatra/reloader'
+#require 'sinatra/reloader'
 
-output = "<br><img src=\'https://tinyurl.com/y97g69ua\'>"
+output = ""#<br><img src=\'https://tinyurl.com/y97g69ua\'>"
 cheat = "false"
 @@bg_color = "red"
 @@count = -1
