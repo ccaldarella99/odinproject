@@ -104,10 +104,11 @@ class Tree
       p current.to_s 
       found = true
       return true
-    elsif(current.left != nil)
+	end
+    if(current.left != nil && target < current.value)
 #      puts current.left.to_s
       found = dfs_rec(target, current.left)
-    elsif(current.right != nil)
+    elsif(current.right != nil && target > current.value)
 #      puts current.right.to_s
       found = dfs_rec(target, current.right)
     end
@@ -120,6 +121,7 @@ class Tree
         return true
       end
     end
+	found
   end
 end
 
