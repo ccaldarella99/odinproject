@@ -1,9 +1,12 @@
 
 # 1.  The first example shows the goal scored by a player with the last name 'Bender'. The * says to list all the columns in the table - a shorter way of saying matchid, teamid, player, gtime
-
+SELECT matchid, player FROM goal 
+  WHERE teamid LIKE 'Ger'
 
 # 2.  From the previous query you can see that Lars Benders scored a goal in game 1012. Now we want to know what teams were playing in that match.
-
+SELECT DISTINCT id,stadium,team1,team2
+  FROM game JOIN goal ON (id=matchid)
+ WHERE matchid = 1012
 
 # 3.  Modify it to show the player, teamid, stadium and mdate for every German goal.
 
