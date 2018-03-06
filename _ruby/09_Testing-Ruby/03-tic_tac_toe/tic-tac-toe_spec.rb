@@ -1,0 +1,2 @@
+require "tic-tac-toe"
+
