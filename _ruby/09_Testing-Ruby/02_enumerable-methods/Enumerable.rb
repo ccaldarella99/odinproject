@@ -106,18 +106,18 @@ def test_method(arrIn)
 end
 
 
-multiply_els(array1)
-multiply_els(array2)
-multiply_els(array3)
-multiply_els(array4)
-multiply_els(array5)
-
-puts ""
-
-test_method(array1)
-test_method(array2)
-test_method(array3)
-test_method(array4)
-test_method(array5)
-
-system('pause')
+#multiply_els(array1)
+#multiply_els(array2)
+#multiply_els(array3)
+#multiply_els(array4)
+#multiply_els(array5)
+#
+#puts ""
+#
+#test_method(array1)
+#test_method(array2)
+#test_method(array3)
+#test_method(array4)
+#test_method(array5)
+#
+#system('pause')
