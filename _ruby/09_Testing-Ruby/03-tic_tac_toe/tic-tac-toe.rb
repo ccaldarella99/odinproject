@@ -3,35 +3,52 @@ module TicTacToe
   class Game
     attr_accessor :board, :player1, :player2, :turn, :winner, :computer, :level
     
-    def initialize
+    def initialize(set_comput=nil, auto_player=nil, auto_level=nil)
       @board = Board.new
       @turn = "X"
-      @computer = isComputer
-      @player1 = Player.new
-      @player2 = Player.new(@player1.token, @computer == "2" ? false : true)
-      @level = @computer == "2" ? 0 : getLevel
-    end
-    
-    def getLevel
-      puts "\nPick a Level:   1) Easy   2) Medium   3) Harder   4) Hardest"
-      getLevelInput = gets.chomp
-      if(getLevelInput.to_i > 3 || getLevelInput.upcase == "HARDEST")
-        @level = 3
-      elsif(getLevelInput.to_i > 2 || getLevelInput.upcase == "HARDER")
-        @level = 2
-      elsif(getLevelInput.to_i > 1 || getLevelInput.upcase == "Medium")
-        @level = 1
+      @computer = set_comput
+      @computer ||= isComputer
+      @player1 = Player.new(auto_player, auto_player, auto_player)
+      @player2 = Player.new(@player1.token, @computer == "2" ? false : true, auto_player)
+      if(!auto_level)
+        @level = @computer == "2" ? 0 : getLevel
       else
-        @level = 0
+        @level = auto_level
       end
     end
     
-    def isComputer
-      loop do
-        system "clear"
-        puts "How many human Players will be participating today?"
-        numPlayers = gets.chomp
-        return numPlayers if(numPlayers == "1" || numPlayers == "2")
+    def getLevel(auto_set=nil)
+      if(auto_set == nil)
+        puts "\nPick a Level:   1) Easy   2) Medium   3) Harder   4) Hardest"
+        getLevelInput = gets.chomp
+        if(getLevelInput.to_i > 3 || getLevelInput.upcase == "HARDEST")
+          @level = 3
+        elsif(getLevelInput.to_i > 2 || getLevelInput.upcase == "HARDER")
+          @level = 2
+        elsif(getLevelInput.to_i > 1 || getLevelInput.upcase == "Medium")
+          @level = 1
+        else
+          @level = 0
+        end
+      elsif(auto_set >=0 && auto_set <=3)
+        @level = auto_set
+      else
+        @level = 2
+      end
+    end
+    
+    def isComputer(auto_set=nil)
+      if(auto_set == nil)
+        loop do
+          system "clear"
+          puts "How many human Players will be participating today?"
+          numPlayers = gets.chomp
+          return numPlayers if(numPlayers == "1" || numPlayers == "2")
+        end
+      elsif(auto_set == "1" || auto_set == "2")
+        return auto_set
+      else
+        return "1"
       end
     end
     
@@ -133,8 +150,8 @@ module TicTacToe
       bestMove[1]
     end
     
-    def nextTurn()
-      getMove = getNumber
+    def nextTurn(getMove=nil)
+      getMove ||= getNumber
       @board.writeMoveToBoard(getMove-1, @turn)
       system "clear"
       nameToken
@@ -162,7 +179,7 @@ module TicTacToe
   class Player
     attr_accessor :name, :token
     
-    def initialize(isTwo=nil, isComputer=nil)
+    def initialize(isTwo=nil, isComputer=nil, set_name=nil)
       if(isComputer)
         @name = "COMPUTER"
       else
@@ -171,8 +188,13 @@ module TicTacToe
         else
           print "\nOkay Player1. "
         end
-        puts "WHAT! ...is your name?"
-        @name = gets.chomp
+        if(!set_name)
+          puts "WHAT! ...is your name?"
+          @name = gets.chomp
+        else
+          oneTwo = isTwo == nil ? "2" : "1"
+          @name = "Player#{isTwo}"
+        end
         puts "Your name is #{@name}!"
       end
       if isTwo
@@ -224,27 +246,44 @@ module TicTacToe
     end
   end
   
-  game = Game.new
-  
-  system "clear"
-  game.nameToken
-  game.board.show_example
-  game.board.show
-  
-  while game.over? do
-      game.nextTurn
-  end
-  
-  if(game.winner.nil?)
-    puts "\nWe'll call it a draw."
-  elsif (game.winner == game.player1.token)
-    puts "\n#{game.player1.name} Wins!"
-  elsif (game.winner == game.player2.token)
-    puts "\n#{game.player2.name} Wins!"
-  end
-  puts "\n"
+#  game = Game.new
+#  
+#  system "clear"
+#  game.nameToken
+#  game.board.show_example
+#  game.board.show
+#  
+#  while game.over? do
+#      game.nextTurn
+#  end
+#  
+#  if(game.winner.nil?)
+#    puts "\nWe'll call it a draw."
+#  elsif (game.winner == game.player1.token)
+#    puts "\n#{game.player1.name} Wins!"
+#  elsif (game.winner == game.player2.token)
+#    puts "\n#{game.player2.name} Wins!"
+#  end
+#  puts "\n"
 end
 
 
+#tictactoe = TicTacToe
+#game = tictactoe::Game.new(1, "X", 2)
+#game.nameToken
+#game.board.show_example
+#game.board.show
+#
+#while game.over? do
+#    game.nextTurn
+#end
+#
+#if(game.winner.nil?)
+#  puts "\nWe'll call it a draw."
+#elsif (game.winner == game.player1.token)
+#  puts "\n#{game.player1.name} Wins!"
+#elsif (game.winner == game.player2.token)
+#  puts "\n#{game.player2.name} Wins!"
+#end
 
 
