@@ -91,10 +91,34 @@ class Tree
     end
   end
   
-  def breadth_first_search(tree, target)
+  def breadth_first_search(target)
+	current = @root
+	puts current.to_s
   end
 
-  def depth_first_search
+  def depth_first_search(target)
+	current = @root
+	found = false
+	while(!found)
+		puts current.to_s
+		if(target == current.value)
+			p current.to_s
+			found = true
+			break;
+		end
+		if(current.left != nil && target < current.value)
+			current = current.left
+		elsif(current.right != nil && target > current.value)
+			current = current.right
+		else
+			found = false
+		end
+	end
+	if(not found)
+		puts "Number #{target} not found"
+	else
+		puts "#{target} found at #{current}"
+	end
   end
 
   def dfs_rec(target, current=@root)
@@ -134,6 +158,9 @@ tree2.build_Tree(array2)
 tree2.show
 p array2
 
-#breadth_first_search(tree2, 14)
-#depth_first_search(tree2, 14)
+puts "\n\n"
 tree2.dfs_rec(9)
+puts "\n\n"
+tree2.depth_first_search(9)
+puts "\n\n"
+tree2.breadth_first_search(9)
