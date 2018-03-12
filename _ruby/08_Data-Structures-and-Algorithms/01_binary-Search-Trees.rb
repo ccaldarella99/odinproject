@@ -95,13 +95,15 @@ class Tree
     lvl_root = []
     lvl_root << @root
     found = false
-    while(!found)
+	stay_while = true
+    while(!found && stay_while)
       lvl_arr = []
 	  lvl_root.each do |current|
 		  puts current.to_s
 		  if(target == current.value)
 			p current.to_s
 			found = true
+			stay_while = false
 			break;
 		  end
 		  if(current.left != nil)
@@ -110,6 +112,7 @@ class Tree
 			lvl_arr << current.right
 		  elsif(current.right == nil && current.left == nil)
 			found = false
+			stay_while = false
 		    break
 		  end
 	  end
