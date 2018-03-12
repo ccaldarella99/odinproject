@@ -92,8 +92,35 @@ class Tree
   end
   
   def breadth_first_search(target)
-	current = @root
-	puts current.to_s
+    lvl_root = []
+    lvl_root << @root
+    found = false
+    while(!found)
+      lvl_arr = []
+	  lvl_root.each do |current|
+		  puts current.to_s
+		  if(target == current.value)
+			p current.to_s
+			found = true
+			break;
+		  end
+		  if(current.left != nil)
+			lvl_arr << current.left
+		  elsif(current.right != nil)
+			lvl_arr << current.right
+		  elsif(current.right == nil && current.left == nil)
+			found = false
+		    break
+		  end
+	  end
+	  lvl_root = lvl_arr
+	  lvl_arr = []
+    end
+    if(not found)
+      puts "Number #{target} not found"
+    else
+      puts "#{target} found at #{current}"
+    end
   end
 
   def depth_first_search(target)
@@ -161,7 +188,7 @@ p array2
 
 #puts "\n\n"
 #tree2.dfs_rec(9)
-puts "\n\n"
-tree2.depth_first_search(17)
+#puts "\n\n"
+#tree2.depth_first_search(9)
 puts "\n\n"
 tree2.breadth_first_search(9)
