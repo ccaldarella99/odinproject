@@ -112,6 +112,7 @@ class Tree
 			current = current.right
 		else
 			found = false
+			break
 		end
 	end
 	if(not found)
@@ -158,9 +159,9 @@ tree2.build_Tree(array2)
 tree2.show
 p array2
 
+#puts "\n\n"
+#tree2.dfs_rec(9)
 puts "\n\n"
-tree2.dfs_rec(9)
-puts "\n\n"
-tree2.depth_first_search(9)
+tree2.depth_first_search(17)
 puts "\n\n"
 tree2.breadth_first_search(9)
