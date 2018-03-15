@@ -91,7 +91,7 @@ class Tree
     end
   end
   
-  def breadth_first_search(target)
+  def breadth_first_search(target, current=@root)
     lvl_root = []
     lvl_root << @root
     found = false
@@ -108,13 +108,17 @@ class Tree
 		  end
 		  if(current.left != nil)
 			lvl_arr << current.left
-		  elsif(current.right != nil)
+	      end
+		  if(current.right != nil)
 			lvl_arr << current.right
-		  elsif(current.right == nil && current.left == nil)
+		  end
+		  if(current.right == nil && current.left == nil)
 			found = false
-			stay_while = false
 		    break
 		  end
+	  end
+	  if(lvl_arr == [])
+	    break
 	  end
 	  lvl_root = lvl_arr
 	  lvl_arr = []
