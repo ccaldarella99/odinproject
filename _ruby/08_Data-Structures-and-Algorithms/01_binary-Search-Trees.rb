@@ -112,10 +112,6 @@ class Tree
 		  if(current.right != nil)
 			lvl_arr << current.right
 		  end
-		  if(current.right == nil && current.left == nil)
-			found = false
-		    break
-		  end
 	  end
 	  if(lvl_arr == [])
 	    break
