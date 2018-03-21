@@ -186,7 +186,7 @@ array2 = [1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324]
 #tree1 = build_tree(array1)
 tree2 = Tree.new
 tree2.build_Tree(array2)
-tree2.show
+#tree2.show
 p array2
 
 #puts "\n\n"
@@ -195,3 +195,7 @@ p array2
 #tree2.depth_first_search(9)
 puts "\n\n"
 tree2.breadth_first_search(9)
+tree2.breadth_first_search(3)
+tree2.breadth_first_search(324)
+tree2.breadth_first_search(56)
+

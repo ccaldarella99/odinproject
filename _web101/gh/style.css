@@ -18,6 +18,7 @@
 .hlink {
 	text-decoration:none;
 	color:#777;
+	
 }
 
 .hlink:hover {
@@ -45,6 +46,12 @@
 
 .w {
 	width:40px;
+	text-align:center;
+	display:inline-block;
+}
+
+.w2 {
+	width:200px;
 	text-align:center;
 	display:inline-block;
 }
@@ -188,3 +195,8 @@ input[type=submit]:hover {
 	right: 10px;
 	padding:2px 10px;
 }
+.blink {
+	padding-top: 10px;
+	display: inline-block;
+}
+
